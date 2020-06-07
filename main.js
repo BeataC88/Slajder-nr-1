@@ -39,4 +39,28 @@ const changeSlajd = () => {
 
 }
 
-setInterval(changeSlajd, time)
+let indexShowSlajd = setInterval(changeSlajd, time)
+
+const keyChangeSlajd = (e) => {
+    switch (e.keyCode) {
+        case 37:
+            clearInterval(indexShowSlajd);
+            active--;
+            if (active < 0) {
+                active = slajder.length - 1;
+            }
+            break;
+        case 39:
+            clearInterval(indexShowSlajd);
+            active++;
+            if (active === slajder.length) {
+                active = 0;
+            }
+    }
+    image.src = slajder[active].img;
+    h1.textContent = slajder[active].text;
+    changeDot()
+    indexShowSlajd = setInterval(changeSlajd, time)
+}
+
+window.addEventListener('keydown', keyChangeSlajd)
